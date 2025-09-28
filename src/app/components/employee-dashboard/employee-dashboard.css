@@ -1,0 +1,156 @@
+/* Employee Dashboard Container */
+.employee-dashboard-container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Section Styling */
+.employee-section,
+.department-section,
+.department-statistics-section {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  padding: 25px;
+  border: 1px solid #e9ecef;
+}
+
+/* Section Headers */
+.employee-section h2,
+.department-section h2,
+.department-statistics-section h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  width: 100%;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #3498db;
+  display: inline-block;
+}
+
+/* Department Statistics Section */
+.department-statistics-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.department-card {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.department-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.department-header {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.department-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.department-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.employee-count {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid #bbdefb;
+}
+
+.progress-container {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.capacity-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #495057;
+  background: #f8f9fa;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #dee2e6;
+}
+
+/* Responsive Grid for Department Cards */
+@media (min-width: 768px) {
+  .department-statistics-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+/*   
+  .department-statistics-section > h2 {
+    width: 100%;
+  } */
+
+  .department-card {
+    max-width: 500px;
+    min-width: 300px;
+  }
+}
+
+/* Enhanced styling for small screens */
+@media (max-width: 767px) {
+  .employee-dashboard-container {
+    padding: 15px;
+  }
+  
+  .employee-section,
+  .department-section,
+  .department-statistics-section {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .department-card {
+    margin-bottom: 15px;
+  }
+  
+  .department-name {
+    font-size: 1.2rem;
+  }
+  
+  .employee-section h2,
+  .department-section h2,
+  .department-statistics-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.department-card:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}

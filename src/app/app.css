@@ -1,0 +1,10 @@
+    .app-container {
+        min-height: 100vh;
+        background: #f8f9fa;
+
+    }
+    .header {
+        color: #343a40;
+        padding: 1rem;
+        text-align: center;
+    }

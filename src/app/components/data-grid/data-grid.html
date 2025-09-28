@@ -1,0 +1,49 @@
+<div class="data-grid-container" #dataGridContainer>
+    <table class="data-grid-table" #dataTable>
+        <thead>
+            <tr>
+                <th *ngFor="let col of columns" 
+                    (click)="onSort(col)" 
+                    (keydown.enter)="onSort(col)"
+                    (keydown.space)="onSort(col); $event.preventDefault()"
+                    [class.sortable]="col.sortable && sortable"
+                    [attr.tabindex]="col.sortable && sortable ? 0 : null"
+                    [attr.aria-sort]="getSortState(col)"
+                    role="columnheader">
+                    {{ col.name }}
+                    <span *ngIf="col.sortable && sortable">
+                        <span *ngIf="sortColumn === col.property && sortDirection === 'asc'">▲</span>
+                        <span *ngIf="sortColumn === col.property && sortDirection === 'desc'">▼</span>
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of pagedData" class="data-row">
+                <td *ngFor="let col of columns">
+                    {{ row[col.property] }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pagination" *ngIf="pagedData.length > 0">
+        <button (click)="changePage(1)" [disabled]="currentPage === 1">❙ ❮</button>
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">❮</button>
+        <span>Page {{ currentPage }} / {{ totalPages }}</span>
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">❯</button>
+        <button (click)="changePage(totalPages)" [disabled]="currentPage === totalPages">❯ ❙</button>
+
+        <div class="page-size-selector">
+            <label [for]="pageSizeSelectId" class="page-size-label">Items per page:</label>
+            <select [id]="pageSizeSelectId" 
+                    [name]="pageSizeSelectId" 
+                    (change)="setPageSize($event)">
+                <option *ngFor="let size of availablePageSizes" 
+                        [value]="size" [selected]="size === pageSize">{{ size }}</option>
+            </select>
+            <span [id]="pageSizeSelectId + '-description'" class="sr-only">
+                Changing this setting will update the table to show the selected number of items per page
+            </span>
+        </div>
+    </div>
+</div>

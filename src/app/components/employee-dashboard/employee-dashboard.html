@@ -1,0 +1,42 @@
+<div class="employee-dashboard-container" role="main">
+    <section class="employee-section" aria-labelledby="employees-heading">
+        <h2 id="employees-heading" tabindex="0">Employee List</h2>
+        <t-grid [data]="employees$" [pageSize]="7" [sortable]="true" (sortChange)="onEmployeeSortChange($event)"
+            (paginationChange)="onEmployeePaginationChange($event)">
+            <t-column name="ID" property="id" [sortable]="true"></t-column>
+            <t-column name="First Name" property="firstName" [sortable]="true"></t-column>
+            <t-column name="Last Name" property="lastName" [sortable]="true"></t-column>
+            <t-column name="Department" property="department" [sortable]="true"></t-column>
+            <t-column name="Email" property="email" [sortable]="false"></t-column>
+        </t-grid>
+    </section>
+
+    <section class="department-section" aria-labelledby="departments-heading">
+        <h2 id="departments-heading" tabindex="0">Departments</h2>
+        <t-grid [data]="departments$" [pageSize]="5" [sortable]="true" (sortChange)="onDeptSortChange($event)"
+            (paginationChange)="onDeptPaginationChange($event)">
+            <t-column name="Department" property="name" [sortable]="true"></t-column>
+            <t-column name="Employees" property="currentEmployees" [sortable]="true"></t-column>
+            <t-column name="Total Capacity" property="maxCapacity" [sortable]="true"></t-column>
+            <t-column name="Vacancy %" property="vacancyPercentage" [sortable]="true"></t-column>
+        </t-grid>
+    </section>
+
+    <section class="department-statistics-section" aria-labelledby="statistics-heading">
+        <h2 id="statistics-heading" tabindex="0">Department Statistics</h2>
+        <div *ngFor="let dept of departments$ | async" class="department-card" tabindex="0">
+            <div class="department-header">
+                <h3 class="department-name">{{dept.name}}</h3>
+                <div class="department-stats">
+                    <span class="employee-count" [attr.aria-label]="dept.currentEmployees + ' out of ' + dept.maxCapacity + ' employees'">
+                        {{dept.currentEmployees}}/{{dept.maxCapacity}}
+                    </span>
+                </div>
+            </div>
+            <div class="progress-container">
+                <t-progress [radius]="60" [progress]="100-dept.vacancyPercentage"
+                    [color]="getDepartmentProgressColor(100-dept.vacancyPercentage)"></t-progress>
+            </div>
+        </div>
+    </section>
+</div>

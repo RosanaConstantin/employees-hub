@@ -1,0 +1,46 @@
+<div class="progress-container" 
+     [style.width.px]="svgSize" 
+     [style.height.px]="svgSize"
+     [attr.aria-label]="'Progress: ' + progress + ' percent'"
+     [attr.aria-valuenow]="progress"
+     [attr.aria-valuemin]="0"
+     [attr.aria-valuemax]="100"
+     role="progressbar">
+  
+  <svg 
+    [attr.width]="svgSize" 
+    [attr.height]="svgSize"
+    class="progress-svg"
+    [attr.viewBox]="'0 0 ' + svgSize + ' ' + svgSize"
+    aria-hidden="true">
+    
+    <!-- Background circle -->
+    <circle
+      class="progress-background"
+      [attr.cx]="centerPosition"
+      [attr.cy]="centerPosition"
+      [attr.r]="radius"
+      [attr.stroke-width]="strokeWidth"
+      fill="transparent"
+      stroke="#e9ecef">
+    </circle>
+    
+    <!-- Progress circle -->
+    <circle
+      class="progress-bar"
+      [attr.cx]="centerPosition"
+      [attr.cy]="centerPosition"
+      [attr.r]="radius"
+      [attr.stroke]="color"
+      [attr.stroke-width]="strokeWidth"
+      [attr.stroke-dasharray]="circumference"
+      [attr.stroke-dashoffset]="strokeDashoffset"
+      fill="transparent">
+    </circle>
+  </svg>
+  
+  <!-- Progress percentage text -->
+  <div class="progress-text" [style.color]="color">
+    <span class="progress-percentage" aria-hidden="true">{{progress}}%</span>
+  </div>
+</div>
