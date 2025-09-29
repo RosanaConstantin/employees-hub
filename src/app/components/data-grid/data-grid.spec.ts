@@ -70,6 +70,8 @@ describe('DataGridComponent', () => {
     component.columns = {
       find: () => ({ property: 'id', sortable: true })
     } as unknown as QueryList<DataGridColumnComponent<Record<string, unknown>>>;
+    component.ngOnInit();
+
     const column: DataGridColumnComponent<Record<string, unknown>> = { property: 'id', sortable: true } as DataGridColumnComponent<Record<string, unknown>>;
     component.onSort(column);
     expect(component.sortColumn).toBe('id');
@@ -81,6 +83,8 @@ describe('DataGridComponent', () => {
     component.data = [
       { id: 1 }, { id: 2 }
     ];
+    component.ngOnInit();
+
     const column: DataGridColumnComponent<Record<string, unknown>> = { property: 'id', sortable: true } as DataGridColumnComponent<Record<string, unknown>>;
     component.onSort(column); // ASC
     component.onSort(column); // DESC
@@ -90,6 +94,8 @@ describe('DataGridComponent', () => {
   it('should emit sortChange event', () => {
     spyOn(component.sortChange, 'emit');
     component.data = [{ id: 1 }, { id: 2 }];
+    component.ngOnInit();
+
     const column: DataGridColumnComponent<Record<string, unknown>> = { property: 'id', sortable: true } as DataGridColumnComponent<Record<string, unknown>>;
     component.onSort(column);
     expect(component.sortChange.emit).toHaveBeenCalledWith({

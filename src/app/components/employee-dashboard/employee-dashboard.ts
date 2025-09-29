@@ -25,7 +25,7 @@ export class EmployeeDashboardComponent {
   private readonly employeeService: EmployeeService = inject(EmployeeService);
   private readonly departmentService: DepartmentService = inject(DepartmentService);
   private readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
-  
+
   readonly employees$: Observable<Employee[]>;
   readonly departments$: Observable<Department[]>;
 
@@ -37,13 +37,18 @@ export class EmployeeDashboardComponent {
       console.log('Employees loaded:', employees);
       this.cdr.markForCheck();
     });
-    
+
     this.departments$.subscribe(departments => {
       console.log('Departments loaded:', departments);
       this.cdr.markForCheck();
     });
   }
 
+  /**
+   * Gets the progress color for a department based on its completion percentage.
+   * @param percentage The completion percentage of the department.
+   * @returns The color code for the progress indicator.
+   */
   getDepartmentProgressColor(percentage: number): string {
     if (percentage >= 90) return '#28a745';
     if (percentage >= 70) return '#ffc107';

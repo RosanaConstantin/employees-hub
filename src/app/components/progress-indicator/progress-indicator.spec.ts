@@ -12,11 +12,11 @@ describe('ProgressIndicatorComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ProgressIndicatorComponent]
     })
-    .overrideComponent(ProgressIndicatorComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    })
-    .compileComponents();
-    
+      .overrideComponent(ProgressIndicatorComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default }
+      })
+      .compileComponents();
+
     fixture = TestBed.createComponent(ProgressIndicatorComponent);
     component = fixture.componentInstance;
   });
@@ -86,10 +86,10 @@ describe('ProgressIndicatorComponent', () => {
 
     it('should update strokeDashoffset when progress changes', () => {
       const initialOffset: number = component.strokeDashoffset;
-      
+
       component.progress = 50;
       component.ngOnInit();
-      
+
       expect(component.strokeDashoffset).not.toBe(initialOffset);
     });
   });
@@ -97,10 +97,10 @@ describe('ProgressIndicatorComponent', () => {
   describe('Complete Event Emission', () => {
     it('should emit complete event when progress reaches 100 from below 100', fakeAsync(() => {
       spyOn(component.complete, 'emit');
-      
+
       component.progress = 95;
       component.ngOnInit();
-      
+
       // Simulate progress change to 100
       component.progress = 100;
       component.ngOnChanges({
@@ -111,48 +111,48 @@ describe('ProgressIndicatorComponent', () => {
           isFirstChange: () => false
         }
       });
-      
+
       tick(300);
-      
+
       expect(component.complete.emit).toHaveBeenCalled();
     }));
 
     it('should not emit complete event when progress stays at 100', fakeAsync(() => {
       spyOn(component.complete, 'emit');
-      
+
       component.progress = 100;
       tick(300);
-      
+
       (component.complete.emit as jasmine.Spy).calls.reset();
-      
+
       component.progress = 100;
-      
+
       tick(300);
-      
+
       expect(component.complete.emit).not.toHaveBeenCalled();
     }));
 
     it('should not emit complete event when progress decreases from 100', fakeAsync(() => {
       spyOn(component.complete, 'emit');
-      
+
       component.progress = 100;
       tick(300);
 
       (component.complete.emit as jasmine.Spy).calls.reset();
-      
+
       component.progress = 90;
-      
+
       tick(300);
-      
+
       expect(component.complete.emit).not.toHaveBeenCalled();
     }));
 
     it('should emit complete event only once when crossing 100 threshold', fakeAsync(() => {
       spyOn(component.complete, 'emit');
-      
+
       component.progress = 95;
       component.ngOnInit();
-      
+
       // First change to 100
       component.progress = 100;
       component.ngOnChanges({
@@ -163,7 +163,7 @@ describe('ProgressIndicatorComponent', () => {
           isFirstChange: () => false
         }
       });
-      
+
       // Second change to 100 (should not emit again)
       component.ngOnChanges({
         progress: {
@@ -173,19 +173,19 @@ describe('ProgressIndicatorComponent', () => {
           isFirstChange: () => false
         }
       });
-      
+
       tick(300);
-      
+
       expect(component.complete.emit).toHaveBeenCalledTimes(1);
     }));
 
     it('should handle multiple completion cycles correctly', fakeAsync(() => {
       spyOn(component.complete, 'emit');
-      
+
       // First completion cycle
       component.progress = 95;
       component.ngOnInit();
-      
+
       component.progress = 100;
       component.ngOnChanges({
         progress: {
@@ -196,7 +196,7 @@ describe('ProgressIndicatorComponent', () => {
         }
       });
       tick(300);
-      
+
       // Second completion cycle - go back to 80, then to 100 again
       component.progress = 80;
       component.ngOnChanges({
@@ -207,7 +207,7 @@ describe('ProgressIndicatorComponent', () => {
           isFirstChange: () => false
         }
       });
-      
+
       component.progress = 100;
       component.ngOnChanges({
         progress: {
@@ -218,7 +218,7 @@ describe('ProgressIndicatorComponent', () => {
         }
       });
       tick(300);
-      
+
       expect(component.complete.emit).toHaveBeenCalledTimes(2);
     }));
   });
@@ -233,7 +233,7 @@ describe('ProgressIndicatorComponent', () => {
 
       component.radius = 80;
       component.ngOnInit();
-      
+
       expect(component.diameter).not.toBe(initialDiameter);
       expect(component.circumference).not.toBe(initialCircumference);
     });
@@ -244,10 +244,10 @@ describe('ProgressIndicatorComponent', () => {
 
       let progressText: DebugElement = fixture.debugElement.query(By.css('.progress-percentage'));
       expect(progressText.nativeElement.textContent).toBe('30%');
-      
+
       component.progress = 80;
       fixture.detectChanges();
-      
+
       progressText = fixture.debugElement.query(By.css('.progress-percentage'));
       expect(progressText.nativeElement.textContent).toBe('80%');
     });
@@ -268,7 +268,7 @@ describe('ProgressIndicatorComponent', () => {
     it('should handle zero radius (should be set to minimum 50)', () => {
       component.radius = 0;
       component.ngOnInit();
-      
+
       expect(component.radius).toBe(50);
       expect(component.diameter).toBe(100);
     });
@@ -276,7 +276,7 @@ describe('ProgressIndicatorComponent', () => {
     it('should handle very large radius values', () => {
       component.radius = 1000;
       component.ngOnInit();
-      
+
       expect(component.radius).toBe(1000);
       expect(component.diameter).toBe(2000);
       expect(component.svgSize).toBe(2020);
@@ -285,9 +285,9 @@ describe('ProgressIndicatorComponent', () => {
     it('should handle decimal progress values', () => {
       component.progress = 33.7;
       component.ngOnInit();
-      
+
       expect(component.progress).toBe(33.7);
-      
+
       fixture.detectChanges();
       const progressText: DebugElement = fixture.debugElement.query(By.css('.progress-percentage'));
       expect(progressText.nativeElement.textContent).toBe('33.7%');
